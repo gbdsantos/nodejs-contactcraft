@@ -1,0 +1,10 @@
+services:
+  service-mysql:
+    image: bitnami/mysql
+    ports: 
+      - '3306:3306'
+    environment:
+      - MYSQL_DATABASE=contactcraft
+      - MYSQL_ROOT_PASSWORD=docker
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=docker
