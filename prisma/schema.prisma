@@ -6,3 +6,11 @@ datasource db {
   provider = "mysql"
   url      = env("MYSQL_URL")
 }
+
+model Contact {
+  id    String @id @default(uuid())
+  name  String
+  phone String
+
+  @@map("contacts")
+}

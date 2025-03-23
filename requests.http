@@ -1,0 +1,36 @@
+# Variables
+@BASE_URL = http://localhost:3000
+
+# @name create_contact
+POST {{BASE_URL}}/contatos
+Content-Type: application/json
+
+{
+  "name": "Guilherme Bezerra",
+  "phone": "+55011987654321"
+}
+
+###
+
+# @name read_contacts
+GET {{BASE_URL}}/contatos
+Content-Type: application/json
+
+###
+
+# @name update_contacts
+# @prompt contactId Type contact id
+PATCH {{BASE_URL}}/contatos/{{contactId}}
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "phone": "+55021998765432"
+}
+
+###
+
+# @name delete_contacts
+# @prompt contactId Type contact id
+DELETE  {{BASE_URL}}/contatos/{{contactId}}
+Content-Type: application/json
