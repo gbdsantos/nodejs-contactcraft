@@ -1,7 +1,6 @@
 import { PrismaContactsRepository } from '@/repositories/prisma/prisma-contacts-repository'
 import { CreateContactUseCase } from '@/use-cases/create-contact'
 import { DeleteContactUseCase } from '@/use-cases/delete-contact'
-import { ContactAlreadyExistsError } from '@/use-cases/errors/contact-already-exists'
 import { ContactNotFoundError } from '@/use-cases/errors/contact-not-found'
 import { GetContactsListUseCase } from '@/use-cases/get-contacts-list'
 import { UpdateContactUseCase } from '@/use-cases/update-contact'
@@ -15,9 +14,9 @@ class ContactController {
       const contactBodySchema = z.object({
         name: z.string().refine(validateMinTwoWords, {
           message:
-            'O nome do contato deve ter pelo menos duas palavras, cada uma com pelo menos 3 letras.',
+            'The contact name must be at least two words, each at least 3 letters long.',
         }),
-        phone: z.string().max(16),
+        phone: z.string().min(8).max(16),
       })
 
       const { name, phone } = contactBodySchema.parse(request.body)
@@ -59,7 +58,7 @@ class ContactController {
           .string()
           .refine(validateMinTwoWords, {
             message:
-              'O nome do contato deve ter pelo menos duas palavras, cada uma com pelo menos 3 letras.',
+              'The contact name must be at least two words, each at least 3 letters long',
           })
           .optional(),
         phone: z.string().max(16).optional(),
@@ -99,14 +98,14 @@ class ContactController {
       const contactNotFound = await contactsRepository.findById(contactId)
 
       if (!contactNotFound) {
-        throw new ContactNotFoundError('operação realizada com sucesso', 204)
+        throw new ContactNotFoundError('Contact does not exist', 404)
       }
 
       deleteContactUseCase.execute(contactId)
 
       return response
-        .status(204)
-        .json({ message: 'contato excluído com sucesso' })
+        .status(200)
+        .json({ message: 'Contact successfully deleted' })
     } catch (error) {
       next(error)
     }

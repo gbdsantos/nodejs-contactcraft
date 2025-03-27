@@ -1,7 +1,7 @@
-import { AppError } from '@/utils/app-error'
+import { AppError } from './app-error'
 
 export class ContactAlreadyExistsError extends AppError {
   constructor() {
-    super('Você já cadastrou um contato com este mesmo nome.', 409)
+    super('You have already registered a contact with this same name', 409)
   }
 }

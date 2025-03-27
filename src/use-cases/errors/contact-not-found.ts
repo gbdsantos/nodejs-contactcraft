@@ -1,7 +1,7 @@
-import { AppError } from '@/utils/app-error'
+import { AppError } from './app-error'
 
 export class ContactNotFoundError extends AppError {
-  constructor(message = 'contato não encontrado', statusCode = 404) {
+  constructor(message = 'contact not found', statusCode = 404) {
     super(message, statusCode)
   }
 }

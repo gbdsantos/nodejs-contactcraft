@@ -1,5 +1,3 @@
-import { randomUUID } from 'node:crypto'
-// update-contact.spec.ts
 import { InMemoryContactsRepository } from '@/test/repositories/in-memory-contacts-repository'
 import { CreateContactUseCase } from './create-contact'
 import { ContactNotFoundError } from './errors/contact-not-found'

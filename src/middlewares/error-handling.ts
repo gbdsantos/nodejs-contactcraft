@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import { AppError } from '@/utils/app-error'
+import { AppError } from '@/use-cases/errors/app-error'
 import type { NextFunction, Request, Response } from 'express'
 import { ZodError } from 'zod'
 
@@ -14,7 +14,12 @@ export function errorHandling(
   }
 
   if (error instanceof AppError) {
-    return response.status(error.statusCode).json({ message: error.message })
+    return response.status(error.statusCode).json({
+      error: {
+        code: error.errorCode || 'APP_ERROR',
+        message: error.message,
+      },
+    })
   }
 
   if (error instanceof ZodError) {
@@ -23,5 +28,10 @@ export function errorHandling(
       .json({ message: 'validation error', issues: error.format() })
   }
 
-  return response.status(500).json({ message: 'erro desconhecido' })
+  return response.status(500).json({
+    error: {
+      code: 'INTERNAL_ERROR',
+      message: 'unknown error',
+    },
+  })
 }
