@@ -97,6 +97,10 @@ routes.get('/contatos', contactsController.index)
  *               $ref: '#/components/schemas/ContactResponse'
  *       404:
  *         description: Contato não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ContactNotFoundErrorResponse'
  *       400:
  *         description: Erro na requisição
  */
@@ -116,8 +120,20 @@ routes.patch('/contatos/:contactId', contactsController.update)
  *           type: string
  *         description: ID do contato a ser removido
  *     responses:
- *       204:
- *         description: Contato removido com sucesso
+ *       200:
+ *         description: Contato excluído com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ContactDeletedResponse'
+ *       404:
+ *         description: Contato não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ContactNotFoundErrorResponse'
+ *       400:
+ *         description: Erro na requisição
  */
 routes.delete('/contatos/:contactId', contactsController.delete)
 

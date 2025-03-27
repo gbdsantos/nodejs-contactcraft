@@ -99,6 +99,42 @@ const swaggerOptions = swaggerJsDoc({
             ],
           },
         },
+        ContactDeletedResponse: {
+          type: 'object',
+          properties: {
+            message: {
+              type: 'string',
+              description: 'Mensagem de sucesso que o contato foi deletado',
+            },
+          },
+          example: {
+            message: 'Contact successfully deleted',
+          },
+        },
+        ContactNotFoundErrorResponse: {
+          type: 'object',
+          properties: {
+            error: {
+              type: 'object',
+              properties: {
+                code: {
+                  type: 'string',
+                  description: 'Código customizado de erro da aplicação',
+                },
+                message: {
+                  type: 'string',
+                  description: 'Mesagem de erro',
+                },
+              },
+            },
+          },
+          example: {
+            error: {
+              code: 'APP_ERROR',
+              message: 'Contact does not exist',
+            },
+          },
+        },
       },
     },
   },
